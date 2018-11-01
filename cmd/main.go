@@ -1,32 +1,32 @@
 package main
 
 import (
-	"os"
-	"log"
-	"time"
-	"fmt"
 	"flag"
+	"fmt"
 	"image"
-	"image/gif"
-	"image/draw"
 	"image/color/palette"
+	"image/draw"
+	"image/gif"
+	_ "image/jpeg"
 	"image/png"
 	_ "image/png"
-	_ "image/jpeg"
+	"log"
+	"os"
+	"time"
 
 	"github.com/esimov/stackblur-go"
 )
 
 var (
-	source		= flag.String("in", "", "Source")
-	destination	= flag.String("out", "", "Destination")
-	radius 		= flag.Int("radius", 20, "Radius")
-	outputGif	= flag.Bool("gif", false, "Output Gif")
+	source      = flag.String("in", "", "Source")
+	destination = flag.String("out", "", "Destination")
+	radius      = flag.Int("radius", 20, "Radius")
+	outputGif   = flag.Bool("gif", false, "Output Gif")
 )
 
 func main() {
 	var imgs []image.Image
-	var done chan struct{} = make(chan struct{}, *radius)
+	var done = make(chan struct{}, *radius)
 	flag.Parse()
 
 	if len(*source) == 0 || len(*destination) == 0 {
