@@ -50,7 +50,7 @@ $ stackblur -in image/sample.png -out image/output.png -radius 10
 The cli command supports a `-gif` flag, which if set as true it will visualize the bluring process by outputting the result into a gif file. However in case you wish to generate only the blured image, because of API constraints, you need to create a go channel and use it as the last parameter of the `Process` method like in the code below:
 
 ```Go
-var done chan struct{} = make(chan struct{}, *radius)
+var done = make(chan struct{}, *radius)
 stackblur.Process(src, uint32(src.Bounds().Dx()), uint32(src.Bounds().Dy()), uint32(*radius), done)
 <-done
 ```
