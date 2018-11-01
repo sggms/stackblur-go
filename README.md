@@ -1,5 +1,7 @@
 # stackblur-go
-`stackblur-go` is a Go port of [Stackblur](http://incubator.quasimondo.com/processing/fast_blur_deluxe.php) algorithm created by Mario Klingemann.
+[![Build Status](https://travis-ci.org/esimov/stackblur-go.svg?branch=master)](https://travis-ci.org/esimov/stackblur-go)
+
+**`stackblur-go`** is a Go port of [Stackblur](http://incubator.quasimondo.com/processing/fast_blur_deluxe.php) algorithm created by Mario Klingemann.
 
 To quote the author this algorithm "*is a compromise between Gaussian blur and Box blur, it creates much better looking blurs than Box blur, but it is 7x faster than Gaussian blur.*" 
 
