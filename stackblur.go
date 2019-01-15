@@ -58,7 +58,7 @@ func (bs *blurStack) NewBlurStack() *blurStack {
 }
 
 // Process takes an image as parameter and returns it's blurred version by applying the blur radius.
-func Process(src image.Image, radius uint32, done chan struct{}) image.Image {
+func Process(src image.Image, radius uint32) image.Image {
 	var stackEnd, stackIn, stackOut *blurStack
 	var width, height = uint32(src.Bounds().Dx()), uint32(src.Bounds().Dy())
 	var (
@@ -358,7 +358,6 @@ func Process(src image.Image, radius uint32, done chan struct{}) image.Image {
 			yi += width
 		}
 	}
-	done <- struct{}{}
 	return img
 }
 

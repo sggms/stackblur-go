@@ -14,7 +14,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/esimov/stackblur-go"
+	"github.com/sggms/stackblur-go"
 )
 
 var (
@@ -26,7 +26,6 @@ var (
 
 func main() {
 	var imgs []image.Image
-	var done = make(chan struct{}, *radius)
 	flag.Parse()
 
 	if len(*source) == 0 || len(*destination) == 0 {
@@ -43,26 +42,22 @@ func main() {
 	start := time.Now()
 	if *outputGif {
 		for i := 1; i <= *radius; i++ {
-			img := stackblur.Process(src, uint32(i), done)
+			img := stackblur.Process(src, uint32(i))
 			fmt.Printf("frame %d/%d\n", i, *radius)
-			go func() {
-				imgs = append(imgs, img)
-				if i == *radius {
-					generateImage(*destination, img)
-				}
-			}()
-			<-done
+			imgs = append(imgs, img)
+			if i == *radius {
+				generateImage(*destination, img)
+			}
 		}
 		fmt.Printf("encoding GIF\n")
 		if err := encodeGIF(imgs, "output.gif"); err != nil {
 			log.Fatal(err)
 		}
 	} else {
-		img := stackblur.Process(src, uint32(*radius), done)
+		img := stackblur.Process(src, uint32(*radius))
 		end := time.Since(start)
 		fmt.Printf("Generated in: %.2fs\n", end.Seconds())
 		generateImage(*destination, img)
-		<-done
 	}
 }
 
